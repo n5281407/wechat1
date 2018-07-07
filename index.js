@@ -1,6 +1,7 @@
 var express = require('express');
 var crypto = require("crypto");
 var app = express();
+var xmlparser = require("express-xml-bodyparser");
 
 app.set('port', process.env.PORT || 80);
 
@@ -19,6 +20,24 @@ app.get('/wx', function(req, res) {
 	} else {
 		res.send("");
 	}
+});
+
+app.get('/wx', xmlparser({trim: false, explicityArray: false}), function(req, res) {
+	var input = req.body;
+	var toUserName = input.ToUserName;
+	var fromUserName = input.FromUserName;
+	var createTime = input.CreateTime;
+	var msgType = input.MsgType;
+	var content = input.Content;
+	var val = {
+		toUserName,
+		fromUserName,
+		createTime,
+		msgType,
+		content,
+	};
+	console.log(val);
+	res.send("success");
 });
 
 app.listen(app.get('port'), function(){
