@@ -39,13 +39,33 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 		content,
 		msgId
 	};
-    var retVal = {
-        ToUserName: val.fromUserName,
-        FromUserName: val.toUserName,
-        CreateTime: val.createTime,
-        MsgType: val.msgType,
-        Content: "您好"
-    };
+	var retVal = {};
+	if (msgType === "text") {
+		retVal = {
+			ToUserName: val.fromUserName,
+			FromUserName: val.toUserName,
+			CreateTime: val.createTime,
+			MsgType: "text",
+			Content: "您好,收到您的消息：" + val.content
+		};
+	} else if (msgType === "image") {
+		retVal = {
+			ToUserName: val.fromUserName,
+			FromUserName: val.toUserName,
+			CreateTime: val.createTime,
+			MsgType: "text",
+			Content: "您好, 图片已收悉，谢谢"
+		};
+	} else {
+		retVal = {
+			ToUserName: val.fromUserName,
+			FromUserName: val.toUserName,
+			CreateTime: val.createTime,
+			MsgType: "text",
+			Content: "抱歉，目前暂不支持此消息格式"
+		};
+	}
+
     var xmlBuilder = new xml2js.Builder({rootName: "xml"});
     var xml = xmlBuilder.buildObject(retVal);
 	console.log(xml);
