@@ -23,18 +23,20 @@ app.get('/wx', function(req, res) {
 });
 //post msg
 app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, res) {
-	var input = req.body;
-	var toUserName = input.ToUserName;
-	var fromUserName = input.FromUserName;
-	var createTime = input.CreateTime;
-	var msgType = input.MsgType;
-	var content = input.Content;
+	var input = req.body.xml;
+	var toUserName = input.tousername;
+	var fromUserName = input.fromusername;
+	var createTime = input.createtime;
+	var msgType = input.msgtype;
+	var content = input.content;
+	var msgId = input.msgid;
 	var val = {
 		toUserName,
 		fromUserName,
 		createTime,
 		msgType,
 		content,
+		msgId
 	};
 	console.log(val);
 	res.send("success");
