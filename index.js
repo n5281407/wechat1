@@ -21,8 +21,8 @@ app.get('/wx', function(req, res) {
 		res.send("");
 	}
 });
-
-app.get('/wx', xmlparser({trim: false, explicityArray: false}), function(req, res) {
+//post msg
+app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, res) {
 	var input = req.body;
 	var toUserName = input.ToUserName;
 	var fromUserName = input.FromUserName;
