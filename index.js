@@ -2,6 +2,7 @@ var express = require('express');
 var crypto = require("crypto");
 var app = express();
 var xmlparser = require("express-xml-bodyparser");
+var xml2js = require("xml2js");
 
 app.set('port', process.env.PORT || 80);
 
@@ -38,8 +39,17 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 		content,
 		msgId
 	};
-	console.log(val);
-	res.send("success");
+    var retVal = {
+        ToUserName: val.fromUserName,
+        FromUserName: val.toUserName,
+        CreateTime: val.createTime,
+        MsgType: val.msgType,
+        Content: "您好"
+    };
+    var xmlBuilder = new xml2js.Builder({rootName: "xml"});
+    var xml = xmlBuilder.buildObject(retVal);
+	console.log(xml);
+	res.send(xml);
 });
 
 app.listen(app.get('port'), function(){
