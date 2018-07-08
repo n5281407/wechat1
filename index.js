@@ -28,7 +28,7 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 	var toUserName = input.tousername;
 	var fromUserName = input.fromusername;
 	var createTime = input.createtime;
-	var msgType = input.msgtype;
+	var msgType = input.msgtype[0];
 	var content = input.content;
 	var msgId = input.msgid;
 	var val = {
