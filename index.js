@@ -46,7 +46,7 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			FromUserName: val.toUserName,
 			CreateTime: val.createTime,
 			MsgType: "text",
-			Content: "您好,收到您的消息：" + val.content
+			Content: "您好, 文本消息已收悉，谢谢"
 		};
 	} else if (msgType === "image") {
 		retVal = {
@@ -54,7 +54,15 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			FromUserName: val.toUserName,
 			CreateTime: val.createTime,
 			MsgType: "text",
-			Content: "您好, 图片已收悉，谢谢"
+			Content: "您好, 图片消息已收悉，谢谢"
+		};
+	} else if (msgType === "voice") {
+		retVal = {
+			ToUserName: val.fromUserName,
+			FromUserName: val.toUserName,
+			CreateTime: val.createTime,
+			MsgType: "text",
+			Content: "您好, 语音消息已收悉，谢谢"
 		};
 	} else {
 		retVal = {
