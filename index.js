@@ -7,7 +7,6 @@ var tokenManager = require("./util/AccessTokenManager.js");
 
 app.set('port', process.env.PORT || 80);
 tokenManager.start();
-console.log("token is: " + tokenManager.getToken());
 
 app.get('/wx', function(req, res) {
 	var signature = req.query.signature;
