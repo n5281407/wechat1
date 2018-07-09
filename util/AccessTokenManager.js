@@ -9,6 +9,7 @@ var updateToken = function() {
     request.get(postUrl, (err, res, body) => {
         if (!err) {
             token = JSON.parse(body).access_token;
+			console.log("token updated with: " + token);
         }
     });
 };
@@ -23,8 +24,12 @@ var start = function() {
     }, 5400000);
 };
 
-export {getToken};
-export {start};
+exports.getToken = getToken;
+exports.start = function() {
+	setInterval(function( {
+		updateToken();
+   }, 5400000 );
+};
 // function getToken() {
 //     return token;
 // }
