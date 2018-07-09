@@ -25,9 +25,11 @@ var postUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credent
 // };
 
 exports.getToken = function() {
+    console.log("invoking getToken...");
     return token;   
 };
 exports.start = function() {
+    console.log('invoking start...');
     setInterval(function() {
         console.log("requesting token...");
         request.get(postUrl, (err, res, body) => {
