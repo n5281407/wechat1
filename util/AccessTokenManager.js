@@ -24,23 +24,28 @@ var postUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credent
 //     }, 5400000);
 // };
 
+var updateToken = function() {
+    request.get(postUrl, (err, res, body) => {
+        console.log('err is: ' + err);
+        console.log('res is: ' + res);
+        console.log('body is: ' + body);
+        if (!err) {
+            token = JSON.parse(body).access_token;
+            console.log("token updated with: " + token);
+        }
+    });
+};
+
 exports.getToken = function() {
     console.log("invoking getToken...");
     return token;   
 };
 exports.start = function() {
     console.log('invoking start...');
+    updateToken();
     setInterval(function() {
         console.log("requesting token...");
-        request.get(postUrl, (err, res, body) => {
-            console.log('err is: ' + err);
-            console.log('res is: ' + res);
-            console.log('body is: ' + body);
-            if (!err) {
-                token = JSON.parse(body).access_token;
-                console.log("token updated with: " + token);
-            }
-        });
+        updateToken();
     }, 5400000);
 };
 // function getToken() {
