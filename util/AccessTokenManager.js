@@ -29,7 +29,11 @@ exports.getToken = function() {
 };
 exports.start = function() {
     setInterval(function() {
+        console.log("requesting token...");
         request.get(postUrl, (err, res, body) => {
+            console.log('err is: ' + err);
+            console.log('res is: ' + res);
+            console.log('body is: ' + body);
             if (!err) {
                 token = JSON.parse(body).access_token;
                 console.log("token updated with: " + token);
