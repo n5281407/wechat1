@@ -38,8 +38,8 @@ var menuObj = {
 
 var createMenu = function() {
     console.log("invoking createMenu...");
-    // var token = tokenManager.getToken();
-    var token = tokenManager.token;
+    var token = tokenManager.getToken();
+    // var token = tokenManager.token;
     console.log("access token is: " + token);
     var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + token;
     var options = {

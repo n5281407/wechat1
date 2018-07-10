@@ -14,10 +14,11 @@ var updateToken = function() {
     });
 };
 
-exports.token = token;
+// exports.token = token;
 
 exports.getToken = function() {
     console.log("invoking getToken...");
+    console.log("returning token as: " + token);
     return token;
 };
 exports.start = function() {
