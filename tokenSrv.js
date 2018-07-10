@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var request = require("request");
-var postUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx0b0a02c65d81e00a&secret=787c322980d3510d39e97281eced12af";
+var postUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx5e1068381abcf3bc&secret=10e3e710e4c30efbe64260ec74f192d1";
 
 var token = "";
 
