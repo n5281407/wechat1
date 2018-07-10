@@ -39,6 +39,7 @@ var menuObj = {
 var createMenu = function() {
     console.log("invoking createMenu...");
     var token = tokenManager.getToken();
+    console.log("access token is: " + token);
     var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + token;
     var options = {
         uri: postUrl,
@@ -46,9 +47,9 @@ var createMenu = function() {
         json: JSON.stringify(menuObj)
     };
     request(options, function(err, res, body) {
-        console.log(err);
-        console.log(res);
-        console.log(body);
+        // console.log(err);
+        // console.log(res);
+        // console.log(body);
     });
 };
 
