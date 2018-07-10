@@ -46,9 +46,9 @@ var createMenu = function() {
         json: JSON.stringify(menuObj)
     };
     request(options, function(err, res, body) {
-        console.log("err: " + err);
-        console.log("res:" + res);
-        console.log("body: " + body);
+        console.log(err);
+        console.log(res);
+        console.log(body);
     });
 };
 
