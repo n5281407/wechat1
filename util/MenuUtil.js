@@ -50,7 +50,7 @@ var createMenu = function() {
             request(options, function(err, res, body) {
                 // console.log(err);
                 // console.log(res);
-                // console.log(body);
+                console.log(body);
             });            
         }
     });
