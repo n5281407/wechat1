@@ -6,6 +6,10 @@ var xml2js = require("xml2js");
 
 app.set('port', process.env.PORT || 80);
 
+app.engine(".html", require('ejs').__express);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
+app.use(express.static('public'));
 app.get('/wx', function(req, res) {
 	var signature = req.query.signature;
 	var timestamp = req.query.timestamp;
@@ -40,6 +44,8 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 		msgId
 	};
 	var retVal = {};
+	var xmlBuilder;
+	var xml;
 	if (msgType === "text") {
 		retVal = {
 			ToUserName: val.fromUserName,
@@ -48,6 +54,16 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			MsgType: "text",
 			Content: "您好, 文本消息已收悉，谢谢"
 		};
+		if (content === "test") {
+			res.render('index', {
+
+			});
+		} else {
+			xmlBuilder = new xml2js.Builder({rootName: "xml"});
+			xml = xmlBuilder.buildObject(retVal);
+			console.log(xml);
+			res.send(xml);	
+		}
 	} else if (msgType === "image") {
 		retVal = {
 			ToUserName: val.fromUserName,
@@ -56,6 +72,10 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			MsgType: "text",
 			Content: "您好, 图片消息已收悉，谢谢"
 		};
+		xmlBuilder = new xml2js.Builder({rootName: "xml"});
+		xml = xmlBuilder.buildObject(retVal);
+		console.log(xml);
+		res.send(xml);		
 	} else if (msgType === "voice") {
 		retVal = {
 			ToUserName: val.fromUserName,
@@ -70,14 +90,18 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			FromUserName: val.toUserName,
 			CreateTime: val.createTime,
 			MsgType: "text",
-			Content: "抱歉，目前暂不支持此消息格式"
+			Content: "您好"
 		};
+		xmlBuilder = new xml2js.Builder({rootName: "xml"});
+		xml = xmlBuilder.buildObject(retVal);
+		console.log(xml);
+		res.send(xml);		
 	}
 
-    var xmlBuilder = new xml2js.Builder({rootName: "xml"});
-    var xml = xmlBuilder.buildObject(retVal);
-	console.log(xml);
-	res.send(xml);
+    // var xmlBuilder = new xml2js.Builder({rootName: "xml"});
+    // var xml = xmlBuilder.buildObject(retVal);
+	// console.log(xml);
+	// res.send(xml);
 });
 
 app.listen(app.get('port'), function(){
