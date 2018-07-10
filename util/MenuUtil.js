@@ -56,7 +56,7 @@ var createMenu = function() {
             var options = {
                 uri: postUrl,
                 method: "POST",
-                json: JSON.stringify(obj)
+                json: menuObj
             };
             request(options, function(err, res, body) {
                 // console.log(err);
