@@ -15,6 +15,37 @@ var menuObj = {
     ]
 };
 
+
+var obj =  {
+    "button":[
+    {    
+         "type":"click",
+         "name":"今日歌曲",
+         "key":"V1001_TODAY_MUSIC"
+     },
+     {
+          "name":"菜单",
+          "sub_button":[
+          {    
+              "type":"view",
+              "name":"搜索",
+              "url":"http://www.soso.com/"
+           },
+           {
+                "type":"miniprogram",
+                "name":"wxa",
+                "url":"http://mp.weixin.qq.com",
+                "appid":"wx286b93c14bbf93aa",
+                "pagepath":"pages/lunar/index"
+            },
+           {
+              "type":"click",
+              "name":"赞一下我们",
+              "key":"V1001_GOOD"
+           }]
+      }]
+};
+
 var createMenu = function() {
     console.log("invoking createMenu...");
     request("http://localhost:8001/token", function(err, res, body){
@@ -25,7 +56,7 @@ var createMenu = function() {
             var options = {
                 uri: postUrl,
                 method: "POST",
-                json: JSON.stringify(menuObj)
+                json: JSON.stringify(obj)
             };
             request(options, function(err, res, body) {
                 // console.log(err);
