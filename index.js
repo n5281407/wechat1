@@ -55,7 +55,7 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			MsgType: "text",
 			Content: "您好, 文本消息已收悉，谢谢"
 		};
-		if (content === "test") {
+		if (content === "测试") {
 			console.log("about to render index.html");
 			res.render('index', {
 
