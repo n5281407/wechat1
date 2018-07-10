@@ -38,18 +38,21 @@ var menuObj = {
 var createMenu = function() {
     console.log("invoking createMenu...");
     request("http://localhost:8001/token", function(err, res, body){
-        var token = JSON.parse(body).access_token;
-        var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + token;
-        var options = {
-            uri: postUrl,
-            method: "POST",
-            json: JSON.stringify(menuObj)
-        };
-        request(options, function(err, res, body) {
-            // console.log(err);
-            // console.log(res);
-            // console.log(body);
-        });
+        if (!err) {
+            var token = JSON.parse(body).access_token;
+            console.log("token service returned with token: " + token);
+            var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + token;
+            var options = {
+                uri: postUrl,
+                method: "POST",
+                json: JSON.stringify(menuObj)
+            };
+            request(options, function(err, res, body) {
+                // console.log(err);
+                // console.log(res);
+                // console.log(body);
+            });            
+        }
     });
     // var token = tokenManager.token;
     // console.log("access token is: " + token);
