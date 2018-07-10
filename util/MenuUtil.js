@@ -8,26 +8,6 @@ var menuObj = {
             key: "m_commands"
         },
         {
-            name: "读PO文",
-            sub_button: [
-                {
-                    type: "view",
-                    name: "高贵林",
-                    url: ""
-                },
-                {
-                    type: "view",
-                    name: "三联市",
-                    url: ""
-                },
-                {
-                    type: "view",
-                    name: "温哥华",
-                    url: ""
-                }
-            ]
-        },
-        {
             name: "关于我",
             type: "media_id",
             media_id: ""
