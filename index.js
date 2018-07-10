@@ -47,6 +47,7 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 	var xmlBuilder;
 	var xml;
 	if (msgType === "text") {
+		console.log("recevied text: " + content);
 		retVal = {
 			ToUserName: val.fromUserName,
 			FromUserName: val.toUserName,
@@ -55,10 +56,12 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			Content: "您好, 文本消息已收悉，谢谢"
 		};
 		if (content === "test") {
+			console.log("about to render index.html");
 			res.render('index', {
 
 			});
 		} else {
+			console.log("about to reply text");
 			xmlBuilder = new xml2js.Builder({rootName: "xml"});
 			xml = xmlBuilder.buildObject(retVal);
 			console.log(xml);
