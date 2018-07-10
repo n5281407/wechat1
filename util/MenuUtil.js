@@ -1,4 +1,3 @@
-var tokenManager = require("./AccessTokenManager.js");
 var request = require('request');
 
 var menuObj = {
@@ -38,32 +37,35 @@ var menuObj = {
 
 var createMenu = function() {
     console.log("invoking createMenu...");
-    var token = tokenManager.getToken();
-    // var token = tokenManager.token;
-    console.log("access token is: " + token);
-    var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + token;
-    var options = {
-        uri: postUrl,
-        method: "POST",
-        json: JSON.stringify(menuObj)
-    };
-    request(options, function(err, res, body) {
-        // console.log(err);
-        // console.log(res);
-        // console.log(body);
+    request("http://localhost:8001/token", function(err, res, body){
+        var token = JSON.parse(body).access_token;
+        var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + token;
+        var options = {
+            uri: postUrl,
+            method: "POST",
+            json: JSON.stringify(menuObj)
+        };
+        request(options, function(err, res, body) {
+            // console.log(err);
+            // console.log(res);
+            // console.log(body);
+        });
     });
+    // var token = tokenManager.token;
+    // console.log("access token is: " + token);
+
 };
 
-var deleteMenu = function() {
-    var token = tokenManager.getToken();
-    var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=" + token;
-    request.get(postUrl, (err, res, body) => {
-        if (!err) {
-            token = JSON.parse(body).access_token;
-            console.log("token updated with: " + token);
-        }
-    });    
-};
+// var deleteMenu = function() {
+//     var token = tokenManager.getToken();
+//     var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=" + token;
+//     request.get(postUrl, (err, res, body) => {
+//         if (!err) {
+//             token = JSON.parse(body).access_token;
+//             console.log("token updated with: " + token);
+//         }
+//     });    
+// };
 
 createMenu();
 // deleteMenu();
