@@ -80,5 +80,5 @@ var deleteMenu = function() {
     });    
 };
 
-// createMenu();
-deleteMenu();
+createMenu();
+// deleteMenu();
