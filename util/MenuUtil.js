@@ -64,16 +64,21 @@ var createMenu = function() {
 
 };
 
-// var deleteMenu = function() {
-//     var token = tokenManager.getToken();
-//     var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=" + token;
-//     request.get(postUrl, (err, res, body) => {
-//         if (!err) {
-//             token = JSON.parse(body).access_token;
-//             console.log("token updated with: " + token);
-//         }
-//     });    
-// };
+var deleteMenu = function() {
+    console.log("invoking delete menu...");
+    request("http://localhost:8001/token", function(err, res, body){
+        if (!err) {
+            var token = JSON.parse(body).access_token;
+            console.log("token service returned with token: " + token);
+            var postUrl = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=" + token;
+            request.get(postUrl, (err, res, body) => {
+                if (!err) {
+                    console.log("delete menu ok");
+                }
+            });
+        }
+    });    
+};
 
-createMenu();
-// deleteMenu();
+// createMenu();
+deleteMenu();
