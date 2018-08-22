@@ -22,7 +22,8 @@ function fetchWeather(city, req, res, bWeChat, val) {
 		var region = results.location.region;
 		var country = results.location.country;
 		// var output = "title: " + title + "\n";
-		var wind_speed = Number(results.wind.speed * 1.60934).toFixed(1) + " km/h";
+		// var wind_speed = Number(results.wind.speed * 1.60934).toFixed(1) + " km/h";
+		var wind_speed = results.wind.speed + "km/h";
 		var wind_direction = results.wind.direction + " degree";
 		var tempF = results.item.condition.temp + " " + results.units.temperature;
 		var tempC = Number((parseInt(results.item.condition.temp) - 32)* 5 / 9).toFixed(1) + " C";
