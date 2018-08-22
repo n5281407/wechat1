@@ -12,7 +12,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.use(express.static('public'));
 
-function fetchWeather(city, req, res) {
+function fetchWeather(city, req, res, bWeChat, val) {
 	var url = `https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22${city}%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`;
 	axios.get(url).then(function(response) {
 		var results = response.data.query.results.channel;
@@ -53,10 +53,22 @@ function fetchWeather(city, req, res) {
 			output += p_date + " " + p_day + " " + p_condition + " " + p_high + " - " + p_low + "\n";
 		});
 		console.log(output);
-		res.send(output);
+		if (bWeChat) {
+			var retVal = {
+					ToUserName: val.fromUserName,
+					FromUserName: val.toUserName,
+					CreateTime: val.createTime,
+					MsgType: "text",
+					Content: output
+				};
+			var xmlBuilder = new xml2js.Builder({rootName: "xml"});
+			var xml = xmlBuilder.buildObject(retVal);
+			res.send(xml);
+		} else {
+			res.send(output);
+		}
 	}).catch(function(err) {
 		console.log(err);
-		res.send(err);
 	});
 }
 
@@ -115,7 +127,7 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 		if (value.includes("weather")) {
 			var inputs = value.split(" ");
 			var params = inputs[1];
-			fetchWeather(params, req, res);
+			fetchWeather(params, req, res, true, val);
 		} else {
 			// console.log("about to reply");
 			xmlBuilder = new xml2js.Builder({rootName: "xml"});
