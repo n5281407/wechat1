@@ -51,7 +51,7 @@ function fetchWeather(city, req, res, bWeChat, val) {
 			var p_condition = item.text;
 			var p_high = Number((parseInt(item.high) - 32) * 5 / 9).toFixed(1) + "C/" + item.high + "F";
 			var p_low = Number((parseInt(item.low) - 32) * 5 / 9).toFixed(1) + "C/" + item.low + "F";
-			output += p_date + " " + p_day + " " + p_condition + " " + p_high + " - " + p_low + "\n";
+			output += p_date + " " + p_day + " " + p_condition + " " + p_low + " - " + p_high + "\n";
 		});
 		console.log(output);
 		if (bWeChat) {
