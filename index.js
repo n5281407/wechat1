@@ -17,7 +17,7 @@ function fetchWeather(city, req, res, bWeChat, val) {
 	axios.get(url).then(function(response) {
 		var results = response.data.query.results.channel;
 		// var title = results.title;
-		var desc = results.description;
+		var desc = results.description.replace("Yahoo! ", "");
 		var ccity = results.location.city;
 		var region = results.location.region;
 		var country = results.location.country;
