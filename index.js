@@ -89,10 +89,43 @@ app.get('/wx', function(req, res) {
 		res.send("");
 	}
 });
+function fetchJoke(req, res, bWeChat, val) {
+	var url = "http://www.chong4.net";
+	axios.get(url).then((response) => {
+		var html = response.data;
+		var contentStart = html.indexOf(`<div id="content">`);
+		var contentEnd = html.indexOf(`</div>`, contentStart);
+		var content = html.substring(contentStart + 18, contentEnd);
+		content = content.replace(/<p>/g, "");
+		content = content.replace(/<\/p>/g, "");
+		content = content.replace(/<br \/>/g, "\n");
+		content = content.replace(/&nbsp/g, " ");
+		console.log(content);
+		if (bWeChat) {
+			var retVal = {
+					ToUserName: val.fromUserName,
+					FromUserName: val.toUserName,
+					CreateTime: val.createTime,
+					MsgType: "text",
+					Content: content
+				};
+			var xmlBuilder = new xml2js.Builder({rootName: "xml"});
+			var xml = xmlBuilder.buildObject(retVal);
+			res.send(xml);
+		} else {
+			res.send(content);
+		}
+	}).catch((err) => {
+		console.log(err);
+	});
+}
 //get prototype
 app.get('/weather', (req, res) => {
 	var city = req.query.city;
 	fetchWeather(city, req, res);
+});
+app.get('/joke', (req, res) => {
+	fetchJoke(req, res);
 });
 
 //post msg
@@ -129,7 +162,10 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			var inputs = value.split(" ");
 			var params = inputs[1];
 			fetchWeather(params, req, res, true, val);
-		} else {
+		} else if (value.includes("joke")) {
+			fetchJoke(req, res, true, val);
+		}
+		else {
 			// console.log("about to reply");
 			xmlBuilder = new xml2js.Builder({rootName: "xml"});
 			xml = xmlBuilder.buildObject(retVal);
