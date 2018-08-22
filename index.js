@@ -112,7 +112,7 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			Content: "您好, 文本消息已收悉，谢谢"
 		};
 		var value = content[0];
-		if (value.include("weather")) {
+		if (value.includes("weather")) {
 			var inputs = value.split(" ");
 			var params = inputs[1];
 			fetchWeather(params, req, res);
