@@ -100,8 +100,34 @@ function fetchJoke(req, res, bWeChat, val) {
 		content = content.replace(/<\/p>/g, "");
 		content = content.replace(/<br \/>/g, "\n");
 		content = content.replace(/&nbsp/g, " ");
+		content = iconv.decode(content, "gb18030");
 		console.log(content);
 		if (bWeChat) {
+			var retVal = {
+					ToUserName: val.fromUserName,
+					FromUserName: val.toUserName,
+					CreateTime: val.createTime,
+					MsgType: "text",
+					Content: content
+				};
+			var xmlBuilder = new xml2js.Builder({rootName: "xml"});
+			var xml = xmlBuilder.buildObject(retVal);
+			res.send(xml);
+		} else {
+			res.send(content);
+		}
+	}).catch((err) => {
+		console.log(err);
+	});
+}
+function fetchJoke2(req, res, bWechat, val) {
+	var url = "https://bird.ioliu.cn/joke/rand?type=text";
+	axios.get(url).then((response) => {
+		var content = response.data.data[0].content;
+		content = content.replace(/&nbsp;/g, "");
+		content = content.replace(/ /g, "");
+		console.log(content);
+		if (bWechat) {
 			var retVal = {
 					ToUserName: val.fromUserName,
 					FromUserName: val.toUserName,
@@ -125,7 +151,7 @@ app.get('/weather', (req, res) => {
 	fetchWeather(city, req, res);
 });
 app.get('/joke', (req, res) => {
-	fetchJoke(req, res);
+	fetchJoke2(req, res);
 });
 
 //post msg
@@ -163,7 +189,7 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
 			var params = inputs[1];
 			fetchWeather(params, req, res, true, val);
 		} else if (value.includes("joke")) {
-			fetchJoke(req, res, true, val);
+			fetchJoke2(req, res, true, val);
 		}
 		else {
 			// console.log("about to reply");
