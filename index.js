@@ -126,29 +126,56 @@ function fetchJoke2(req, res, bWechat, val) {
     var url = "https://bird.ioliu.cn/joke/rand?type=text";
     axios.get(url).then((response) => {
         var arr = response.data.data || [];
-        arr.forEach((item) => {
-            var content = item.content;
+        if (arr.length > 0) {
+            var content = arr[0].content;
             content = content.replace(/&nbsp;/g, "");
             content = content.replace(/ /g, "");
+            if (bWechat) {
+                replyWeChat(content, val, res);
+            } else {
+                res.send(content);
+            }
             jokeCache.push(content);
-        });
-        var index = Math.floor((Math.random() * jokeCache.length) + 1);
-        var joke = jokeCache[index];
-        console.log(joke);
-        console.log("cache size: " + jokeCache.length);
-        if (bWechat) {
-            replyWeChat(joke, val, res);
         } else {
-            res.send(joke);
+            if (jokeCache.length > 0) {
+                var index = Math.floor(Math.random() * jokeCache.length);
+                var joke = jokeCache[index];
+                if (bWechat) {
+                    replyWeChat(joke, val, res);
+                } else {
+                    res.send(joke);
+                }
+            } else {
+                if (bWechat) {
+                    replyWeChat("Internal Error - 40001", val, res);
+                } else {
+                    res.send("Internal Error - 40001");
+                }
+            }
         }
+        for (var i = 1; i < arr.length; i++) {
+            var next = arr[i].content;
+            next = next.replace(/&nbsp;/g, "");
+            next = next.replace(/ /g, "");
+            jokeCache.push(next);
+        }
+        console.log("cache size: " + jokeCache.length);
     }).catch((err) => {
         console.log("cache size: " + jokeCache.length);
-        var index = Math.floor((Math.random() * jokeCache.length) + 1);
-        var joke = jokeCache[index];
-        if (bWechat) {
-            replyWeChat(joke, val, res);
+        if (jokeCache.length > 0) {
+            var index = Math.floor(Math.random() * jokeCache.length);
+            var joke = jokeCache[index];
+            if (bWechat) {
+                replyWeChat(joke, val, res);
+            } else {
+                res.send(joke);
+            }
         } else {
-            res.send(joke);
+            if (bWechat) {
+                replyWeChat("Internal Error - 40002", val, res);
+            } else {
+                res.send("Internal Error - 40002");
+            }
         }
         console.log(err);
     });
