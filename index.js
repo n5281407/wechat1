@@ -105,37 +105,7 @@ app.get('/wx', function(req, res) {
         res.send("");
     }
 });
-// function fetchJoke(req, res, bWeChat, val) {
-//     var url = "http://www.chong4.net";
-//     axios.get(url).then((response) => {
-//         var html = response.data;
-//         var contentStart = html.indexOf(`<div id="content">`);
-//         var contentEnd = html.indexOf(`</div>`, contentStart);
-//         var content = html.substring(contentStart + 18, contentEnd);
-//         content = content.replace(/<p>/g, "");
-//         content = content.replace(/<\/p>/g, "");
-//         content = content.replace(/<br \/>/g, "\n");
-//         content = content.replace(/&nbsp/g, " ");
-//         content = iconv.decode(content, "gb18030");
-//         console.log(content);
-//         if (bWeChat) {
-//             var retVal = {
-//                     ToUserName: val.fromUserName,
-//                     FromUserName: val.toUserName,
-//                     CreateTime: val.createTime,
-//                     MsgType: "text",
-//                     Content: content
-//                 };
-//             var xmlBuilder = new xml2js.Builder({rootName: "xml"});
-//             var xml = xmlBuilder.buildObject(retVal);
-//             res.send(xml);
-//         } else {
-//             res.send(content);
-//         }
-//     }).catch((err) => {
-//         console.log(err);
-//     });
-// }
+
 function fetchHelp(req, res, bWechat, val) {
     var retVal = {
         ToUserName: val.fromUserName,
@@ -150,17 +120,16 @@ function fetchHelp(req, res, bWechat, val) {
                     Description: "Command examples for weather and joke"
                 },
                 {
-                    Title: "weather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
+                    Title: "weather command:\nweather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
                 },
                 {
-                    Title: "joke"
+                    Title: "joke command:\njoke"
                 }
             ]
         }
     };
     var xmlBuilder = new xml2js.Builder({rootName: "xml"});
     var xml = xmlBuilder.buildObject(retVal);
-    console.log(xml);
     res.send(xml);
 }
 function fetchJoke2(req, res, bWechat, val) {
