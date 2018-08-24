@@ -315,7 +315,7 @@ app.get('/next', (req, res) => {
     var bus = req.query.bus;
     var stop = req.query.stop;
     var count = req.query.count || 1;
-    fetchNextBus(stop, bus, count, req, res);
+    fetchNextBus(bus, stop, count, req, res);
 });
 
 //post msg
