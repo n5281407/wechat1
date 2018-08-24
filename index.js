@@ -72,6 +72,20 @@ function fetchWeather(city, req, res, bWeChat, val) {
         }
     }).catch(function(err) {
         console.log(err);
+        if (bWeChat) {
+            var retVal = {
+                    ToUserName: val.fromUserName,
+                    FromUserName: val.toUserName,
+                    CreateTime: val.createTime,
+                    MsgType: "text",
+                    Content: "Internal Error - 40003"
+                };
+            var xmlBuilder = new xml2js.Builder({rootName: "xml"});
+            var xml = xmlBuilder.buildObject(retVal);
+            res.send(xml);
+        } else {
+            res.send("Internal Error - 40003");
+        }
     });
 }
 
@@ -91,36 +105,61 @@ app.get('/wx', function(req, res) {
         res.send("");
     }
 });
-function fetchJoke(req, res, bWeChat, val) {
-    var url = "http://www.chong4.net";
-    axios.get(url).then((response) => {
-        var html = response.data;
-        var contentStart = html.indexOf(`<div id="content">`);
-        var contentEnd = html.indexOf(`</div>`, contentStart);
-        var content = html.substring(contentStart + 18, contentEnd);
-        content = content.replace(/<p>/g, "");
-        content = content.replace(/<\/p>/g, "");
-        content = content.replace(/<br \/>/g, "\n");
-        content = content.replace(/&nbsp/g, " ");
-        content = iconv.decode(content, "gb18030");
-        console.log(content);
-        if (bWeChat) {
-            var retVal = {
-                    ToUserName: val.fromUserName,
-                    FromUserName: val.toUserName,
-                    CreateTime: val.createTime,
-                    MsgType: "text",
-                    Content: content
-                };
-            var xmlBuilder = new xml2js.Builder({rootName: "xml"});
-            var xml = xmlBuilder.buildObject(retVal);
-            res.send(xml);
-        } else {
-            res.send(content);
-        }
-    }).catch((err) => {
-        console.log(err);
-    });
+// function fetchJoke(req, res, bWeChat, val) {
+//     var url = "http://www.chong4.net";
+//     axios.get(url).then((response) => {
+//         var html = response.data;
+//         var contentStart = html.indexOf(`<div id="content">`);
+//         var contentEnd = html.indexOf(`</div>`, contentStart);
+//         var content = html.substring(contentStart + 18, contentEnd);
+//         content = content.replace(/<p>/g, "");
+//         content = content.replace(/<\/p>/g, "");
+//         content = content.replace(/<br \/>/g, "\n");
+//         content = content.replace(/&nbsp/g, " ");
+//         content = iconv.decode(content, "gb18030");
+//         console.log(content);
+//         if (bWeChat) {
+//             var retVal = {
+//                     ToUserName: val.fromUserName,
+//                     FromUserName: val.toUserName,
+//                     CreateTime: val.createTime,
+//                     MsgType: "text",
+//                     Content: content
+//                 };
+//             var xmlBuilder = new xml2js.Builder({rootName: "xml"});
+//             var xml = xmlBuilder.buildObject(retVal);
+//             res.send(xml);
+//         } else {
+//             res.send(content);
+//         }
+//     }).catch((err) => {
+//         console.log(err);
+//     });
+// }
+function fetchHelp(req, res, bWechat, val) {
+    var retVal = {
+        ToUserName: val.fromUserName,
+        FromUserName: val.toUserName,
+        CreateTime: val.createTime,
+        MsgType: "news",
+        ArticleCount: 2,
+        Articles: [
+            {
+                item: {
+                    Title: "city weather",
+                    Description: "weather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
+                }
+            },{
+                item: {
+                    Title: "Chinese jokes",
+                    Description: "joke"
+                }
+            }
+        ]
+    };
+    var xmlBuilder = new xml2js.Builder({rootName: "xml"});
+    var xml = xmlBuilder.buildObject(retVal);
+    res.send(xml);
 }
 function fetchJoke2(req, res, bWechat, val) {
     var url = "https://bird.ioliu.cn/joke/rand?type=text";
@@ -202,6 +241,9 @@ app.get('/weather', (req, res) => {
 app.get('/joke', (req, res) => {
     fetchJoke2(req, res);
 });
+app.get('/help', (req, res) => {
+    fetchHelp(req, res);
+});
 
 //post msg
 app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, res) {
@@ -239,6 +281,8 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
             fetchWeather(params, req, res, true, val);
         } else if (value.toLowerCase().includes("joke")) {
             fetchJoke2(req, res, true, val);
+        } else if (value.toLowerCase().includes("help")) {
+            fetchHelp(req, res, true, val);
         }
         else {
             // console.log("about to reply");
