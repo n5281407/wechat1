@@ -120,7 +120,7 @@ function fetchHelp(req, res, bWechat, val) {
                     Description: "Command examples for weather and joke"
                 },
                 {
-                    Title: "weather command:\nweather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
+                    Title: "weather command:\nweather vancouver[,bc[,ca]]"
                 },
                 {
                     Title: "joke command:\njoke"
