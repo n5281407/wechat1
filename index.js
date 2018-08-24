@@ -249,6 +249,39 @@ function fetchRoutes(route, stopNo, req, res, bWechat, val) {
     }
 }
 
+function fetchNextBus(route, stop, count, req, res, bWechat, val) {
+    var url = `http://api.translink.ca/rttiapi/v1/stops/${stop}/estimates?apikey=QtHtw9IY0ieKU2OxR3pF&count=${count}&timeframe=1440&routeNo=${route}`;
+    axios.get(url).then((response) => {
+        var buses = response.data || [];
+        var output = `Next ${count} Bus ${route}` + "\n\n";
+        buses.forEach((bus) => {
+            output += "Route No: " + bus.RouteNo + "\n";
+            output += "Route Name: " + bus.RouteName + "\n";
+            output += "Direction: " + bus.Direction + "\n\n";
+            var schedules = bus.Schedules || [];
+            schedules.forEach((schedule, index) => {
+                output += "Schedule: " + index + "\n";
+                output += "Pattern: " + schedule.Pattern + "\n";
+                output += "Destination: " + schedule.Destination + "\n";
+                output += "Expected Leave Time: " + schedule.ExpectedLeaveTime + "\n";
+                output += "Expected Count Down: " + schedule.ExpectedCountdown + "\n\n";
+            });
+        });
+        if (bWechat) {
+            replyWeChat(output, val, res);
+        } else {
+            res.send(output);
+        }
+    }).catch((err) => {
+        if (bWechat) {
+            replyWeChat("Internal Error - 40006", val, res);
+        } else {
+            console.log(err);
+            res.send("Internal Error - 40006");
+        }
+    });
+}
+
 function replyWeChat (msg, val, res) {
     var retVal = {
         ToUserName: val.fromUserName,
@@ -332,6 +365,19 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
             inputs = value.split(" ");
             if (inputs.length === 2) {
                 fetchRoutes("", inputs[1], req, res, true, val);
+            } else {
+                xmlBuilder = new xml2js.Builder({rootName: "xml"});
+                xml = xmlBuilder.buildObject(retVal);
+                console.log(xml);
+                res.send(xml);
+            }
+        } else if (value.toLowerCase().includes("next")) {
+            inputs = value.split(" ");
+            if (inputs.length === 3 || inputs.length === 4) {
+                var count = inputs.length === 4? inputs[3]: 1;
+                var route = inputs[1];
+                var stop = inputs[2];
+                fetchNextBus(route, stop, count, req, res, true, val);
             } else {
                 xmlBuilder = new xml2js.Builder({rootName: "xml"});
                 xml = xmlBuilder.buildObject(retVal);
