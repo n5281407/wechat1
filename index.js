@@ -143,19 +143,31 @@ function fetchHelp(req, res, bWechat, val) {
         CreateTime: val.createTime,
         MsgType: "news",
         ArticleCount: 2,
-        Articles: [
-            {
-                item: {
+        // Articles: [
+        //     {
+        //         item: {
+        //             Title: "city weather",
+        //             Description: "weather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
+        //         }
+        //     },{
+        //         item: {
+        //             Title: "Chinese jokes",
+        //             Description: "joke"
+        //         }
+        //     }
+        // ]
+        Articles: {
+            item: [
+                {
                     Title: "city weather",
-                    Description: "weather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
+                    Description: "command:\nweather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
+                },
+                {
+                    Title: "Chinsese jokes",
+                    Description: "command:\njoke"
                 }
-            },{
-                item: {
-                    Title: "Chinese jokes",
-                    Description: "joke"
-                }
-            }
-        ]
+            ]
+        }
     };
     var xmlBuilder = new xml2js.Builder({rootName: "xml"});
     var xml = xmlBuilder.buildObject(retVal);
