@@ -260,7 +260,7 @@ function fetchNextBus(route, stop, count, req, res, bWechat, val) {
             output += "Direction: " + bus.Direction + "\n\n";
             var schedules = bus.Schedules || [];
             schedules.forEach((schedule, index) => {
-                output += "Schedule: " + index + "\n";
+                output += "Schedule: " + index + 1 + "\n";
                 output += "Pattern: " + schedule.Pattern + "\n";
                 output += "Destination: " + schedule.Destination + "\n";
                 output += "Expected Leave Time: " + schedule.ExpectedLeaveTime + "\n";
@@ -310,6 +310,12 @@ app.get('/routes', (req, res) => {
 });
 app.get('/help', (req, res) => {
     fetchHelp(req, res);
+});
+app.get('/next', (req, res) => {
+    var bus = req.query.bus;
+    var stop = req.query.stop;
+    var count = req.query.count || 1;
+    fetchNextBus(stop, bus, count, req, res);
 });
 
 //post msg
