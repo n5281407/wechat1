@@ -222,9 +222,17 @@ function fetchRoutes(route, stopNo, req, res, bWechat, val) {
         url = `http://api.translink.ca/rttiapi/v1/routes?apikey=QtHtw9IY0ieKU2OxR3pF&stopNo=${stopNo}`;
         axios.get(url).then((response) => {
             var routes = response.data || [];
-            var output = "Routes available on: " + stopNo + "\n";
+            var output = "Routes available on: " + stopNo + "\n\n";
             routes.forEach((route) => {
-                output += route.RouteNo + "\n";
+                output += "Route No: " + route.RouteNo + "\n";
+                output += "Route Name: " + route.Name + "\n";
+                output += "Operating Company: " + route.OperatingCompany + "\n";
+                var patterns = route.Patterns || [];
+                patterns.forEach((pattern) => {
+                    output += "Pattern No: " + pattern.PatternNo + "\n";
+                    output += "Destination: " + pattern.Destination + "\n";
+                    output += "Direction: " + pattern.Direction + "\n\n";
+                });
             });
             if (bWechat) {
                 replyWeChat(output, val, res);
