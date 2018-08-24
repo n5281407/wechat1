@@ -212,8 +212,32 @@ function fetchRoutes(route, stopNo, req, res, bWechat, val) {
                 res.send(output);
             }
         }).catch((err) => {
-            console.log(err);
-            res.send(err);
+            if (bWechat) {
+                replyWeChat("Internal Error - 40004", val, res);
+            } else {
+                res.send("Internal Error - 40004");
+            }
+        });
+    } else if (stopNo) {
+        url = `http://api.translink.ca/rttiapi/v1/routes?apikey=QtHtw9IY0ieKU2OxR3pF&stopNo=${stopNo}`;
+        axios.get(url).then((response) => {
+            var data = response.data;
+            var routes = data.Routes || [];
+            var output = "Routes for " + stopNo + "\n";
+            routes.forEach((route) => {
+                output += route.RouteNo + "\n";
+            });
+            if (bWechat) {
+                replyWeChat(output, val, res);
+            } else {
+                res.send(output);
+            }
+        }).catch((err) => {
+            if (bWechat) {
+                replyWeChat("Internal Error - 40005", val, res);
+            } else {
+                res.send("Internal Error - 40005");
+            }
         });
     }
 }
@@ -291,6 +315,16 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
             inputs = value.split(" ");
             if (inputs.length === 2) {
                 fetchRoutes(inputs[1], "", req, res, true, val);
+            } else {
+                xmlBuilder = new xml2js.Builder({rootName: "xml"});
+                xml = xmlBuilder.buildObject(retVal);
+                console.log(xml);
+                res.send(xml);
+            }
+        } else if (value.toLowerCase().includes("stop")) {
+            inputs = value.split(" ");
+            if (inputs.length === 2) {
+                fetchRoutes("", inputs[1], req, res, true, val);
             } else {
                 xmlBuilder = new xml2js.Builder({rootName: "xml"});
                 xml = xmlBuilder.buildObject(retVal);
