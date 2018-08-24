@@ -1,0 +1,571 @@
+http://api.translink.ca/rttiapi/v1/routes?apikey=QtHtw9IY0ieKU2OxR3pF&stopNo=59565	//get routes for a specific stop
+http://api.translink.ca/rttiapi/v1/routes/186?apikey=QtHtw9IY0ieKU2OxR3pF	//get route information
+
+http://api.translink.ca/rttiapi/v1/stops/59565?apikey=QtHtw9IY0ieKU2OxR3pF	//get stop general information
+
+http://api.translink.ca/rttiapi/v1/stops/59565/estimates?apikey=QtHtw9IY0ieKU2OxR3pF	//- Returns the next 6 buses for each route to service the stop in the next 24 hours
+http://api.translink.ca/rttiapi/v1/stops/59565/estimates?apikey=QtHtw9IY0ieKU2OxR3pF&count=3&timeframe=120	//- Returns the next 3 buses for each route to service the stop in the next 2 hours meters
+http://api.translink.ca/rttiapi/v1/stops/59565/estimates?apikey=QtHtw9IY0ieKU2OxR3pF&count=3&timeframe=120&routeNo=183	//- Returns the next 3 buses to service the stop in the next 2 hours for route 183
+http://api.translink.ca/rttiapi/v1/stops/59565/estimates?apikey=QtHtw9IY0ieKU2OxR3pF&routeNo=183	//Returns the next 6 buses to service the stop in the next 24 hours for route 183
+
+
+
+http://api.translink.ca/rttiapi/v1/routes?apikey=QtHtw9IY0ieKU2OxR3pF&stopNo=59565
+<Routes xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <Route>
+        <RouteNo>183</RouteNo>
+        <Name>MOODY CTR STN/COQUITLAM CENTRAL STN</Name>
+        <OperatingCompany>CMBC</OperatingCompany>
+        <Patterns>
+            <Pattern>
+                <PatternNo>WB1</PatternNo>
+                <Destination>MOODY CTR STN</Destination>
+                <RouteMap>
+                    <Href>http://nb.translink.ca/geodata/trip/183-WB1.kmz</Href>
+                </RouteMap>
+                <Direction>WEST</Direction>
+            </Pattern>
+        </Patterns>
+    </Route>
+    <Route>
+        <RouteNo>186</RouteNo>
+        <Name>COQUITLAM CENTRAL STN/HAMPTON PARK</Name>
+        <OperatingCompany>CMBC</OperatingCompany>
+        <Patterns>
+            <Pattern>
+                <PatternNo>NB1</PatternNo>
+                <Destination>HAMPTON PARK</Destination>
+                <RouteMap>
+                    <Href>http://nb.translink.ca/geodata/trip/186-NB1.kmz</Href>
+                </RouteMap>
+                <Direction>NORTH</Direction>
+            </Pattern>
+            <Pattern>
+                <PatternNo>NB2</PatternNo>
+                <Destination>PANORAMA</Destination>
+                <RouteMap>
+                    <Href>http://nb.translink.ca/geodata/trip/186-NB2.kmz</Href>
+                </RouteMap>
+                <Direction>NORTH</Direction>
+            </Pattern>
+        </Patterns>
+    </Route>
+    <Route>
+        <RouteNo>188</RouteNo>
+        <Name>COQUITLAM CENTRAL STN/PORT COQ STN</Name>
+        <OperatingCompany>CMBC</OperatingCompany>
+        <Patterns>
+            <Pattern>
+                <PatternNo>EB2</PatternNo>
+                <Destination>PT COQ STN</Destination>
+                <RouteMap>
+                    <Href>http://nb.translink.ca/geodata/trip/188-EB2.kmz</Href>
+                </RouteMap>
+                <Direction>EAST</Direction>
+            </Pattern>
+        </Patterns>
+    </Route>
+    <Route>
+        <RouteNo>191</RouteNo>
+        <Name>COQUITLAM CENTRAL STN/PRINCETON</Name>
+        <OperatingCompany>CMBC</OperatingCompany>
+        <Patterns>
+            <Pattern>
+                <PatternNo>NB1</PatternNo>
+                <Destination>PRINCETON</Destination>
+                <RouteMap>
+                    <Href>http://nb.translink.ca/geodata/trip/191-NB1.kmz</Href>
+                </RouteMap>
+                <Direction>NORTH</Direction>
+            </Pattern>
+        </Patterns>
+    </Route>
+</Routes>
+
+http://api.translink.ca/rttiapi/v1/routes/186?apikey=QtHtw9IY0ieKU2OxR3pF
+<Route xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <RouteNo>186</RouteNo>
+    <Name>COQUITLAM CENTRAL STN/HAMPTON PARK</Name>
+    <OperatingCompany>CMBC</OperatingCompany>
+    <Patterns>
+        <Pattern>
+            <PatternNo>NB1</PatternNo>
+            <Destination>HAMPTON PARK</Destination>
+            <RouteMap>
+                <Href>http://nb.translink.ca/geodata/trip/186-NB1.kmz</Href>
+            </RouteMap>
+            <Direction>NORTH</Direction>
+        </Pattern>
+        <Pattern>
+            <PatternNo>NB2</PatternNo>
+            <Destination>PANORAMA</Destination>
+            <RouteMap>
+                <Href>http://nb.translink.ca/geodata/trip/186-NB2.kmz</Href>
+            </RouteMap>
+            <Direction>NORTH</Direction>
+        </Pattern>
+        <Pattern>
+            <PatternNo>SB1</PatternNo>
+            <Destination>COQ CTRL STN</Destination>
+            <RouteMap>
+                <Href>http://nb.translink.ca/geodata/trip/186-SB1.kmz</Href>
+            </RouteMap>
+            <Direction>SOUTH</Direction>
+        </Pattern>
+        <Pattern>
+            <PatternNo>SB2</PatternNo>
+            <Destination>COQ CTRL STN</Destination>
+            <RouteMap>
+                <Href>http://nb.translink.ca/geodata/trip/186-SB2.kmz</Href>
+            </RouteMap>
+            <Direction>SOUTH</Direction>
+        </Pattern>
+    </Patterns>
+</Route>
+
+http://api.translink.ca/rttiapi/v1/stops/59565?apikey=QtHtw9IY0ieKU2OxR3pF
+<Stop xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <StopNo>59565</StopNo>
+    <Name>LAFARGE LAKE-DOUGLAS STN BAY 1</Name>
+    <BayNo>1</BayNo>
+    <City>COQUITLAM</City>
+    <OnStreet>LAFARGE LAKE-DOUGLAS STN</OnStreet>
+    <AtStreet>BAY 1</AtStreet>
+    <Latitude>49.285967</Latitude>
+    <Longitude>-122.791570</Longitude>
+    <WheelchairAccess>1</WheelchairAccess>
+    <Distance>-1</Distance>
+    <Routes>183, 186, 188, 191</Routes>
+</Stop>
+
+http://api.translink.ca/rttiapi/v1/stops/59565/estimates?apikey=QtHtw9IY0ieKU2OxR3pF
+<NextBuses xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <NextBus>
+        <RouteNo>183</RouteNo>
+        <RouteName>MOODY CTR STN/COQUITLAM CENTRAL STN</RouteName>
+        <Direction>WEST</Direction>
+        <RouteMap>
+            <Href>http://nb.translink.ca/geodata/183.kmz</Href>
+        </RouteMap>
+        <Schedules>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>9:47pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>3</ExpectedCountdown>
+                <ScheduleStatus>-</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:31:20 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>10:15pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>31</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:29:08 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>10:45pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>61</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:40:02 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>11:15pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>91</ExpectedCountdown>
+                <ScheduleStatus>*</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:00:03 pm</LastUpdate>
+            </Schedule>
+        </Schedules>
+    </NextBus>
+    <NextBus>
+        <RouteNo>186</RouteNo>
+        <RouteName>COQUITLAM CENTRAL STN/HAMPTON PARK</RouteName>
+        <Direction>NORTH</Direction>
+        <RouteMap>
+            <Href>http://nb.translink.ca/geodata/186.kmz</Href>
+        </RouteMap>
+        <Schedules>
+            <Schedule>
+                <Pattern>NB1</Pattern>
+                <Destination>HAMPTON PARK</Destination>
+                <ExpectedLeaveTime>10:05pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>21</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:33:07 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>NB1</Pattern>
+                <Destination>HAMPTON PARK</Destination>
+                <ExpectedLeaveTime>10:35pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>51</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:30:07 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>NB1</Pattern>
+                <Destination>HAMPTON PARK</Destination>
+                <ExpectedLeaveTime>11:05pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>81</ExpectedCountdown>
+                <ScheduleStatus>*</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:00:03 pm</LastUpdate>
+            </Schedule>
+        </Schedules>
+    </NextBus>
+    <NextBus>
+        <RouteNo>188</RouteNo>
+        <RouteName>COQUITLAM CENTRAL STN/PORT COQ STN</RouteName>
+        <Direction>EAST</Direction>
+        <RouteMap>
+            <Href>http://nb.translink.ca/geodata/188.kmz</Href>
+        </RouteMap>
+        <Schedules>
+            <Schedule>
+                <Pattern>EB2</Pattern>
+                <Destination>PT COQ STN</Destination>
+                <ExpectedLeaveTime>9:49pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>5</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:25:45 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>EB2</Pattern>
+                <Destination>PT COQ STN</Destination>
+                <ExpectedLeaveTime>10:19pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>35</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:24:15 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>EB2</Pattern>
+                <Destination>PT COQ STN</Destination>
+                <ExpectedLeaveTime>10:49pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>65</ExpectedCountdown>
+                <ScheduleStatus>*</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:00:03 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>EB2</Pattern>
+                <Destination>PT COQ STN</Destination>
+                <ExpectedLeaveTime>11:19pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>95</ExpectedCountdown>
+                <ScheduleStatus>*</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:00:03 pm</LastUpdate>
+            </Schedule>
+        </Schedules>
+    </NextBus>
+</NextBuses>
+
+http://api.translink.ca/rttiapi/v1/stops/59565/estimates?apikey=QtHtw9IY0ieKU2OxR3pF&count=3&timeframe=120
+<NextBuses xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <NextBus>
+        <RouteNo>183</RouteNo>
+        <RouteName>MOODY CTR STN/COQUITLAM CENTRAL STN</RouteName>
+        <Direction>WEST</Direction>
+        <RouteMap>
+            <Href>http://nb.translink.ca/geodata/183.kmz</Href>
+        </RouteMap>
+        <Schedules>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>9:47pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>2</ExpectedCountdown>
+                <ScheduleStatus>-</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:31:20 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>10:15pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>30</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:29:08 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>10:45pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>60</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:40:02 pm</LastUpdate>
+            </Schedule>
+        </Schedules>
+    </NextBus>
+    <NextBus>
+        <RouteNo>186</RouteNo>
+        <RouteName>COQUITLAM CENTRAL STN/HAMPTON PARK</RouteName>
+        <Direction>NORTH</Direction>
+        <RouteMap>
+            <Href>http://nb.translink.ca/geodata/186.kmz</Href>
+        </RouteMap>
+        <Schedules>
+            <Schedule>
+                <Pattern>NB1</Pattern>
+                <Destination>HAMPTON PARK</Destination>
+                <ExpectedLeaveTime>10:05pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>20</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:33:07 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>NB1</Pattern>
+                <Destination>HAMPTON PARK</Destination>
+                <ExpectedLeaveTime>10:35pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>50</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:30:07 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>NB1</Pattern>
+                <Destination>HAMPTON PARK</Destination>
+                <ExpectedLeaveTime>11:05pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>80</ExpectedCountdown>
+                <ScheduleStatus>*</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:00:03 pm</LastUpdate>
+            </Schedule>
+        </Schedules>
+    </NextBus>
+    <NextBus>
+        <RouteNo>188</RouteNo>
+        <RouteName>COQUITLAM CENTRAL STN/PORT COQ STN</RouteName>
+        <Direction>EAST</Direction>
+        <RouteMap>
+            <Href>http://nb.translink.ca/geodata/188.kmz</Href>
+        </RouteMap>
+        <Schedules>
+            <Schedule>
+                <Pattern>EB2</Pattern>
+                <Destination>PT COQ STN</Destination>
+                <ExpectedLeaveTime>9:49pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>4</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:25:45 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>EB2</Pattern>
+                <Destination>PT COQ STN</Destination>
+                <ExpectedLeaveTime>10:19pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>34</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:24:15 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>EB2</Pattern>
+                <Destination>PT COQ STN</Destination>
+                <ExpectedLeaveTime>10:49pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>64</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:45:01 pm</LastUpdate>
+            </Schedule>
+        </Schedules>
+    </NextBus>
+</NextBuses>
+
+http://api.translink.ca/rttiapi/v1/stops/59565/estimates?apikey=QtHtw9IY0ieKU2OxR3pF&count=3&timeframe=120&routeNo=183	//- Returns the next 3 buses to service the stop in the next 2 hours for route 183
+<NextBuses xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <NextBus>
+        <RouteNo>183</RouteNo>
+        <RouteName>MOODY CTR STN/COQUITLAM CENTRAL STN</RouteName>
+        <Direction>WEST</Direction>
+        <RouteMap>
+            <Href>http://nb.translink.ca/geodata/183.kmz</Href>
+        </RouteMap>
+        <Schedules>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>9:47pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>1</ExpectedCountdown>
+                <ScheduleStatus>-</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:31:20 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>10:15pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>29</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:29:08 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>10:45pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>59</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:40:02 pm</LastUpdate>
+            </Schedule>
+        </Schedules>
+    </NextBus>
+</NextBuses>
+
+http://api.translink.ca/rttiapi/v1/stops/59565/estimates?apikey=QtHtw9IY0ieKU2OxR3pF&routeNo=183
+<NextBuses xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <NextBus>
+        <RouteNo>183</RouteNo>
+        <RouteName>MOODY CTR STN/COQUITLAM CENTRAL STN</RouteName>
+        <Direction>WEST</Direction>
+        <RouteMap>
+            <Href>http://nb.translink.ca/geodata/183.kmz</Href>
+        </RouteMap>
+        <Schedules>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>9:47pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>-1</ExpectedCountdown>
+                <ScheduleStatus>-</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:31:20 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>10:15pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>27</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:29:08 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>10:45pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>57</ExpectedCountdown>
+                <ScheduleStatus> </ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:40:02 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>11:15pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>87</ExpectedCountdown>
+                <ScheduleStatus>*</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:00:03 pm</LastUpdate>
+            </Schedule>
+            <Schedule>
+                <Pattern>WB1</Pattern>
+                <Destination>MOODY CTR STN</Destination>
+                <ExpectedLeaveTime>11:45pm 2018-08-23</ExpectedLeaveTime>
+                <ExpectedCountdown>117</ExpectedCountdown>
+                <ScheduleStatus>*</ScheduleStatus>
+                <CancelledTrip>false</CancelledTrip>
+                <CancelledStop>false</CancelledStop>
+                <AddedTrip>false</AddedTrip>
+                <AddedStop>false</AddedStop>
+                <LastUpdate>09:00:03 pm</LastUpdate>
+            </Schedule>
+        </Schedules>
+    </NextBus>
+</NextBuses>
