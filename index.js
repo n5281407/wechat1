@@ -191,6 +191,33 @@ function fetchJoke2(req, res, bWechat, val) {
     });
 }
 
+function fetchRoutes(route, stopNo, req, res, bWechat, val) {
+    var url = "";
+    if (route) {
+        url = `http://api.translink.ca/rttiapi/v1/routes/${route}?apikey=QtHtw9IY0ieKU2OxR3pF`;
+        axios.get(url).then((response) => {
+            var data = response.data;
+            var output = "Route No: " + data.RouteNo + "\n";
+            output += "Route Name: " + data.Name + "\n";
+            output += "Operating Company: " + data.OperatingCompany + "\n\n";
+            var patterns = data.Patterns || [];
+            patterns.forEach((pattern) => {
+                output += "Pattern No: " + pattern.PatternNo + "\n";
+                output += "Destination: " + pattern.Destination + "\n";
+                output += "Direction: " + pattern.Direction + "\n\n";
+            });
+            if (bWechat) {
+                replyWeChat(output, val, res);
+            } else {
+                res.send(output);
+            }
+        }).catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
+    }
+}
+
 function replyWeChat (msg, val, res) {
     var retVal = {
         ToUserName: val.fromUserName,
@@ -211,6 +238,11 @@ app.get('/weather', (req, res) => {
 });
 app.get('/joke', (req, res) => {
     fetchJoke2(req, res);
+});
+app.get('/routes', (req, res) => {
+    var route = req.query.route;
+    var stopNo = req.query.stopNo;
+    fetchRoutes(route, stopNo, req, res);
 });
 app.get('/help', (req, res) => {
     fetchHelp(req, res);
@@ -243,17 +275,28 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
             FromUserName: val.toUserName,
             CreateTime: val.createTime,
             MsgType: "text",
-            Content: "您好, 文本消息已收悉，谢谢"
+            Content: "您好, 如需帮助请发送help"
         };
         var value = content[0];
+        var inputs;
         if (value.toLowerCase().includes("weather")) {
-            var inputs = value.split(" ");
+            inputs = value.split(" ");
             var params = inputs[1];
             fetchWeather(params, req, res, true, val);
         } else if (value.toLowerCase().includes("joke")) {
             fetchJoke2(req, res, true, val);
         } else if (value.toLowerCase().includes("help")) {
             fetchHelp(req, res, true, val);
+        } else if (value.toLowerCase().includes("bus")) {
+            inputs = value.split(" ");
+            if (inputs.length === 2) {
+                fetchRoutes(inputs[1], "", req, res, true, val);
+            } else {
+                xmlBuilder = new xml2js.Builder({rootName: "xml"});
+                xml = xmlBuilder.buildObject(retVal);
+                console.log(xml);
+                res.send(xml);
+            }
         }
         else {
             // console.log("about to reply");
