@@ -159,6 +159,7 @@ function fetchHelp(req, res, bWechat, val) {
     };
     var xmlBuilder = new xml2js.Builder({rootName: "xml"});
     var xml = xmlBuilder.buildObject(retVal);
+    console.log(xml);
     res.send(xml);
 }
 function fetchJoke2(req, res, bWechat, val) {
