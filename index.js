@@ -142,29 +142,18 @@ function fetchHelp(req, res, bWechat, val) {
         FromUserName: val.toUserName,
         CreateTime: val.createTime,
         MsgType: "news",
-        ArticleCount: 2,
-        // Articles: [
-        //     {
-        //         item: {
-        //             Title: "city weather",
-        //             Description: "weather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
-        //         }
-        //     },{
-        //         item: {
-        //             Title: "Chinese jokes",
-        //             Description: "joke"
-        //         }
-        //     }
-        // ]
+        ArticleCount: 3,
         Articles: {
             item: [
                 {
-                    Title: "city weather",
-                    Description: "command:\nweather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
+                    Title: "Help",
+                    Description: "Command examples for weather and joke"
                 },
                 {
-                    Title: "Chinsese jokes",
-                    Description: "command:\njoke"
+                    Title: "weather vancouver\nweather vancouver,bc\nweather vancouver,bc,ca"
+                },
+                {
+                    Title: "joke"
                 }
             ]
         }
