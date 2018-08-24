@@ -260,7 +260,8 @@ function fetchNextBus(route, stop, count, req, res, bWechat, val) {
             output += "Direction: " + bus.Direction + "\n\n";
             var schedules = bus.Schedules || [];
             schedules.forEach((schedule, index) => {
-                output += "Schedule: " + index + 1 + "\n";
+                index ++;
+                output += "Schedule: " + index + "\n";
                 output += "Pattern: " + schedule.Pattern + "\n";
                 output += "Destination: " + schedule.Destination + "\n";
                 output += "Expected Leave Time: " + schedule.ExpectedLeaveTime + "\n";
