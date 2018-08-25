@@ -318,7 +318,7 @@ function fetchMeal (meal, req, res, bWechat, val) {
         if (bWechat) {
             replyWeChat("Internal Error - 40008", val, res);
         } else {
-            res.send("Internal Error - 40008");
+            res.send("Internal Error - 40008\n" + err);
         }
     })
 }
