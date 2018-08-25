@@ -1,3 +1,4 @@
 *node_modules/*
 *.log
 .jshintrc
+keys.json
