@@ -284,8 +284,8 @@ function fetchNextBus(route, stop, count, req, res, bWechat, val) {
 }
 
 function fetchMeal (meal, req, res, bWechat, val) {
+    meal = encodeURI(meal);
     var url = `http://apis.juhe.cn/cook/query?key=6b6e44d1c69db8d62b6fde2c500dae1e&menu=${meal}&rn=1`;
-    url = encodeURIComponent(url);
     axios.get(url).then((response) => {
         var data = response.data.result.data || [];
         if (data.length === 1) {
