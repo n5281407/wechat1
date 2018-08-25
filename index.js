@@ -283,6 +283,45 @@ function fetchNextBus(route, stop, count, req, res, bWechat, val) {
     });
 }
 
+function fetchMeal (meal, req, res, bWechat, val) {
+    var url = `http://apis.juhe.cn/cook/query?key=6b6e44d1c69db8d62b6fde2c500dae1e&menu={meal}&rn=1`;
+    axios.get(url).then((response) => {
+        var data = response.result.data || [];
+        if (data.length === 1) {
+            var meal = data[0];
+            var output = meal.data + "\n\n";
+            output += meal.tags + "\n";
+            output += meal.imtro + "\n";
+            output += "原料：" + meal.ingredients + "\n";
+            output += "调料：" + meal.burden + "\n\n";
+            output += "步骤：\n";
+            var steps = meal.steps || [];
+            steps.forEach((step) => {
+                output += step.step + "\n";
+            });
+            if (bWechat) {
+                replyWeChat(output, val, res);
+            } else {
+                res.send(output);
+            }            
+        } else {
+            if (bWechat) {
+                replyWeChat("Internal Error - 40007", val, res);
+            } else {
+                console.log(err);
+                res.send("Internal Error - 40007");
+            }
+        }
+    }).catch((err) => {
+        if (bWechat) {
+            replyWeChat("Internal Error - 40008", val, res);
+        } else {
+            console.log(err);
+            res.send("Internal Error - 40008");
+        }
+    })
+}
+
 function replyWeChat (msg, val, res) {
     var retVal = {
         ToUserName: val.fromUserName,
@@ -317,6 +356,10 @@ app.get('/next', (req, res) => {
     var stop = req.query.stop;
     var count = req.query.count || 1;
     fetchNextBus(bus, stop, count, req, res);
+});
+app.get('/meal', (req, res) => {
+    var meal = req.query.meal;
+    fetchMeal(meal, req, res);
 });
 
 //post msg
@@ -385,6 +428,17 @@ app.post('/wx', xmlparser({trim: false, explicityArray: false}), function(req, r
                 var route = inputs[1];
                 var stop = inputs[2];
                 fetchNextBus(route, stop, count, req, res, true, val);
+            } else {
+                xmlBuilder = new xml2js.Builder({rootName: "xml"});
+                xml = xmlBuilder.buildObject(retVal);
+                console.log(xml);
+                res.send(xml);
+            }
+        } else if (value.toLowerCase().includes("meal")) {
+            inputs = value.split(" ");
+            if (inputs.length === 2) {
+                var meal = inputs[1];
+                fetchMeal(meal, req, res, true, val);
             } else {
                 xmlBuilder = new xml2js.Builder({rootName: "xml"});
                 xml = xmlBuilder.buildObject(retVal);
