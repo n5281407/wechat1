@@ -290,9 +290,9 @@ function fetchMeal (meal, req, res, bWechat, val) {
         var data = response.data.result.data || [];
         if (data.length === 1) {
             var meal = data[0];
-            var output = meal.data + "\n\n";
-            output += meal.tags + "\n";
-            output += meal.imtro + "\n";
+            var output = "菜名：" + meal.title + "\n\n";
+            output += "标签：" + meal.tags + "\n";
+            output += "简介：" + meal.imtro + "\n";
             output += "原料：" + meal.ingredients + "\n";
             output += "调料：" + meal.burden + "\n\n";
             output += "步骤：\n";
