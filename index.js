@@ -303,20 +303,19 @@ function fetchMeal (meal, req, res, bWechat, val) {
                 replyWeChat(output, val, res);
             } else {
                 res.send(output);
-            }            
+            }
         } else {
             if (bWechat) {
                 replyWeChat("Internal Error - 40007", val, res);
             } else {
-                console.log(err);
                 res.send("Internal Error - 40007");
             }
         }
     }).catch((err) => {
+        console.log(err);
         if (bWechat) {
             replyWeChat("Internal Error - 40008", val, res);
         } else {
-            console.log(err);
             res.send("Internal Error - 40008");
         }
     })
