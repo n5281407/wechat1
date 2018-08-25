@@ -4,6 +4,7 @@ var app = express();
 var xmlparser = require("express-xml-bodyparser");
 var xml2js = require("xml2js");
 var axios = require("axios");
+var fs = require("fs");
 
 var jokeCache = [];
 
@@ -13,6 +14,22 @@ app.engine(".html", require('ejs').__express);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.use(express.static('public'));
+
+var keys = {};
+var mealKey = "";
+var translinkKey = "";
+try{
+    keys = JSON.parse(fs.readFileSync('keys.json', encoding="ascii"));
+    mealKey = keys.juhe.meal;
+    translinkKey = keys.translink.bus;
+    if (!mealKey || !translinkKey) {
+        console.err("keys missing, terminated.");
+        process.exist(1);
+    }
+} catch(err) {
+    console.log("keys not set correctly.");
+    process.exit(1);
+}
 
 function fetchWeather(city, req, res, bWeChat, val) {
     var url = `https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22${city}%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`;
@@ -194,7 +211,7 @@ function fetchJoke2(req, res, bWechat, val) {
 function fetchRoutes(route, stopNo, req, res, bWechat, val) {
     var url = "";
     if (route) {
-        url = `http://api.translink.ca/rttiapi/v1/routes/${route}?apikey=QtHtw9IY0ieKU2OxR3pF`;
+        url = `http://api.translink.ca/rttiapi/v1/routes/${route}?apikey=${translinkKey}`;
         axios.get(url).then((response) => {
             var data = response.data;
             var output = "Route No: " + data.RouteNo + "\n";
@@ -219,7 +236,7 @@ function fetchRoutes(route, stopNo, req, res, bWechat, val) {
             }
         });
     } else if (stopNo) {
-        url = `http://api.translink.ca/rttiapi/v1/routes?apikey=QtHtw9IY0ieKU2OxR3pF&stopNo=${stopNo}`;
+        url = `http://api.translink.ca/rttiapi/v1/routes?apikey=${translinkKey}&stopNo=${stopNo}`;
         axios.get(url).then((response) => {
             var routes = response.data || [];
             var output = "Routes available on: " + stopNo + "\n\n";
@@ -250,7 +267,7 @@ function fetchRoutes(route, stopNo, req, res, bWechat, val) {
 }
 
 function fetchNextBus(route, stop, count, req, res, bWechat, val) {
-    var url = `http://api.translink.ca/rttiapi/v1/stops/${stop}/estimates?apikey=QtHtw9IY0ieKU2OxR3pF&count=${count}&timeframe=1440&routeNo=${route}`;
+    var url = `http://api.translink.ca/rttiapi/v1/stops/${stop}/estimates?apikey=${translinkKey}&count=${count}&timeframe=1440&routeNo=${route}`;
     axios.get(url).then((response) => {
         var buses = response.data || [];
         var output = `Next ${count} Bus ${route}` + "\n\n";
@@ -285,7 +302,7 @@ function fetchNextBus(route, stop, count, req, res, bWechat, val) {
 
 function fetchMeal (meal, req, res, bWechat, val) {
     meal = encodeURI(meal);
-    var url = `http://apis.juhe.cn/cook/query?key=6b6e44d1c69db8d62b6fde2c500dae1e&menu=${meal}&rn=1`;
+    var url = `http://apis.juhe.cn/cook/query?key=${mealKey}&menu=${meal}&rn=1`;
     axios.get(url).then((response) => {
         var data = response.data.result.data || [];
         if (data.length === 1) {
