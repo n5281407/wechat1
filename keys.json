@@ -1,8 +1,8 @@
 {
     "juhe": {
-        "meal": "juhe open api key"
+        "meal": ""
     },
     "translink": {
-        "bus": "translink open api key"
+        "bus": ""
     }
 }

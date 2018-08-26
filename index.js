@@ -129,7 +129,7 @@ function fetchHelp(req, res, bWechat, val) {
         FromUserName: val.toUserName,
         CreateTime: val.createTime,
         MsgType: "news",
-        ArticleCount: 3,
+        ArticleCount: 7,
         Articles: {
             item: [
                 {
