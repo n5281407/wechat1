@@ -141,6 +141,18 @@ function fetchHelp(req, res, bWechat, val) {
                 },
                 {
                     Title: "joke command:\njoke"
+                },
+                {
+                    Title: "meal command:\nmeal 宫保鸡丁"
+                },
+                {
+                    Title: "stop command:\nstop 59565/*stop number*/"
+                },
+                {
+                    Title: "bus command:\nbus 186/*route number*/"
+                },
+                {
+                    Title: "next command:\nnext 186/*route number*/ 59565/*stop number*/ [3]/*count*/"
                 }
             ]
         }
