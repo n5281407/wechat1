@@ -10,9 +10,9 @@ var jokeCache = [];
 
 app.set('port', process.env.PORT || 80);
 
-app.engine(".html", require('ejs').__express);
+// app.engine(".html", require('ejs').__express);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'html');
+app.set('view engine', 'pug');
 app.use(express.static('public'));
 
 var keys = {};
@@ -105,6 +105,11 @@ function fetchWeather(city, req, res, bWeChat, val) {
         }
     });
 }
+
+//web route
+app.get('/web/help', function(req, res) {
+    res.render('help', {title: "My Website - Help"});
+});
 
 app.get('/wx', function(req, res) {
     var signature = req.query.signature;
