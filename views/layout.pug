@@ -1,6 +1,43 @@
 doctype html
 html
     head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
         title #{title}
+        link(rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css")
     body
-        block content
+        //- ul.list-group
+        //-     li.list-group-item Cras justo odio
+        //-     li.list-group-item Dapibus ac facilisis in
+        //-     li.list-group-item Morbi leo risus
+        //-     li.list-group-item Porta ac consectetur ac
+        //-     li.list-group-item Vestibulum at eros
+        nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+            a.navbar-brand(href='#') Navbar
+            button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExampleDefault', aria-controls='navbarsExampleDefault', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarsExampleDefault.collapse.navbar-collapse
+                ul.navbar-nav.mr-auto
+                    li.nav-item.active
+                        a.nav-link(href='#')
+                            | Home 
+                            span.sr-only (current)
+                    li.nav-item
+                        a.nav-link(href='#') Link
+                    li.nav-item
+                        a.nav-link.disabled(href='#') Disabled
+                    li.nav-item.dropdown
+                        a#dropdown01.nav-link.dropdown-toggle(href='https://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown
+                        .dropdown-menu(aria-labelledby='dropdown01')
+                            a.dropdown-item(href='#') Action
+                            a.dropdown-item(href='#') Another action
+                            a.dropdown-item(href='#') Something else here
+                form.form-inline.my-2.my-lg-0
+                    input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
+                    button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+        .container
+            block content
+        script(src="/bower_components/jquery/dist/jquery.min.js")
+        script(src="/bower_components/popper.js/dist/popper.min.js")
+        script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js")

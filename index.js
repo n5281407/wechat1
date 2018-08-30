@@ -107,7 +107,7 @@ function fetchWeather(city, req, res, bWeChat, val) {
 }
 
 //web route
-app.get('/web/help', function(req, res) {
+app.get('/help', function(req, res) {
     res.render('help', {title: "My Website - Help"});
 });
 

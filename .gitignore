@@ -3,3 +3,4 @@
 .jshintrc
 keys.json
 keys.txt
+public/bower_components/*
